@@ -1,0 +1,240 @@
+.file-manager-filelist {
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    position: relative;
+}
+
+.file-table {
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+}
+.file-table-placeholder {
+    display: table-column-group;
+}
+.file-col {
+    width: 100%;
+    display: table-column;
+}
+.file-table-header {
+    background-color: #fafafa;
+    border-bottom: 1px solid #eee;
+    display: table-header-group;
+    padding-right: 16px;
+    left: 0;
+    position: absolute;
+    right: 0;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    z-index: 1;
+    color: #999;
+}
+.file-table-body {
+    display: table-row-group;
+}
+.file-row {
+    display: table-row;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: default;
+}
+.file-row.active,
+.file-row:hover {
+    background-color: #00abd2;
+    color: #fff;
+}
+.file-cell {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.065);
+    display: table-cell;
+    padding: 0;
+    vertical-align: middle;
+    height: 46px;
+    line-height: 46px;
+    width: 100%;
+}
+.file-cell:first-child {
+    padding-left: 30px;
+}
+.file-table-header .file-cell {
+    border-bottom: none;
+    width: 100%;
+}
+.file-name {
+    -webkit-align-items: center;
+    align-items: center;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    height: 100%;
+    width: 100%;
+    position: relative;
+    white-space: nowrap;
+}
+.file-name span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.file-table-body .file-name {
+    padding-left: 30px;
+}
+.file-row[data-file-type="folder"] .file-name {
+    cursor: pointer;
+}
+.file-owner {
+    white-space: nowrap;
+    width: 215px;
+}
+.file-owner span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.file-date {
+    white-space: nowrap;
+    width: 176px;
+}
+.file-date span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.file-size {
+    white-space: nowrap;
+    width: 100px;
+}
+.file-size span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.file-options {
+    opacity: 0;
+    visibility: hidden;
+    width: 25px;
+    text-align: center;
+    font-size: 20px;
+    cursor: pointer;
+}
+.file-options .fa {
+    pointer-events: none;
+}
+.file-options:hover {
+    background-color: #0499bb;
+}
+.file-options:active {
+    background-color: #14505e;
+}
+.file-row.active .file-options,
+.file-row:hover .file-options {
+    opacity: 1;
+    visibility: visible;
+}
+.file-name:before {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    position: absolute;
+    left: 0;
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+    font-size: 18px;
+    text-align: center;
+}
+.file-row[data-file-type="image"] .file-name img {
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    max-width: 25px;
+    height: auto;
+    max-height: 25px;
+    line-height: 25px;
+    text-align: center;
+}
+.file-row[data-file-type="folder"] .file-name:before {
+    content: "\f07c";
+}
+.file-row[data-file-type="document"] .file-name:before {
+    content: "\f15b";
+}
+.file-row[data-file-type="video"] .file-name:before {
+    content: "\f03d";
+}
+.file-row[data-file-type="audio"] .file-name:before {
+    content: "\f028";
+}
+.file-row[data-file-type="font"] .file-name:before {
+    content: "\f031";
+}
+.file-options-menu {
+    display: none;
+    position: absolute;
+    background-color: #FFF;
+    padding: 15px 0;
+    -webkit-box-shadow: 0 0 10px 1px rgba(0,0,0,0.3);
+    -moz-box-shadow: 0 0 10px 1px rgba(0,0,0,0.3);
+    box-shadow: 0 0 10px 1px rgba(0,0,0,0.3);
+    z-index: 2;
+}
+.file-options-menu.active {
+    display: block;
+}
+.file-options-menu ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.file-options-menu ul li {
+    margin: 0;
+    padding: 5px 15px;
+    list-style: none;
+    border-left: 4px solid transparent;
+    cursor: pointer;
+}
+.file-options-menu ul li:hover {
+    background-color: #f2f6f7;
+    border-left-color: #00abd2;
+}
+.file-options-menu hr {
+    margin: 10px 15px;
+    border-top-color: #e4e9eb;
+}
+
+/*@media screen and (max-width: 1280px) {*/
+    /*.file-owner {*/
+        /*width: 145px;*/
+    /*}*/
+    /*.file-date {*/
+        /*width: 125px;*/
+    /*}*/
+/*}*/
+/*#folder-contents {*/
+    /*display: flex;*/
+    /*list-style: none;*/
+/*}*/
+/*#folder-contents li {*/
+    /*width: 150px;*/
+    /*background-color: #EEE;*/
+    /*margin: 0 20px 20px 0;*/
+    /*padding: 20px;*/
+/*}*/
+/*.file h3,*/
+/*.folder h3 {*/
+    /*margin: 0 0 10px;*/
+    /*font-size: 14px;*/
+/*}*/

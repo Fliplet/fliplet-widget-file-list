@@ -1,0 +1,136 @@
+<div class="file-manager-filelist">
+    <div class="f-a">
+        <div class="f-b">
+            <div class="f-c">
+                <div class="file-table">
+
+                    <div class="file-table-placeholder">
+                        <div class="file-col"></div>
+                        <!-- HIDE<div class="file-col file-owner"></div>-->
+                        <div class="file-col file-date"></div>
+                        <!-- HIDE<div class="file-col file-size"></div>-->
+                        <div class="file-col file-options"></div>
+                    </div>
+
+                    <div class="file-table-header">
+                        <div>
+                            <div class="file-cell">
+                                <div class="file-name">
+                                    Name
+                                </div>
+                            </div>
+                            <!-- HIDE
+                            <div class="file-cell">
+                              <div class="file-owner">
+                                Owner
+                              </div>
+                            </div>
+                            -->
+                            <div class="file-cell">
+                                <div class="file-date">
+                                    Last modified
+                                </div>
+                            </div>
+                            <!-- HIDE
+                            <div class="file-cell">
+                              <div class="file-size">
+                                File size
+                              </div>
+                            </div>
+                            -->
+                            <div class="file-cell">
+                                <div class="file-options"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="file-table-body">
+                        <!-- FOLDER CONTENT WILL BE HERE -->
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<template id="template-folder">
+    <div class="file-row" data-folder="\{{mediaFolderId}}" data-id="\{{id}}" data-file-type="folder">
+        <div class="file-cell">
+            <div class="file-name" data-browse-folder>
+                <span>\{{name}}</span>
+            </div>
+        </div>
+        <!-- HIDE
+        <div class="file-cell">
+          <div class="file-owner">
+            <span>\{{owner}}</span>
+          </div>
+        </div>
+        -->
+        <div class="file-cell">
+            <div class="file-date">
+                <span>\{{updatedAt}}</span>
+            </div>
+        </div>
+        <!-- HIDE
+        <div class="file-cell">
+          <div class="file-size">
+            <span>\{{#if size}} \{{size}} \{{else}} - \{{/if}}</span>
+          </div>
+        </div>
+        -->
+        <div class="file-cell">
+            <div class="file-options">
+                <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+            </div>
+        </div>
+    </div>
+</template>
+
+<template id="template-file">
+    <div class="file-row" data-folder="\{{mediaFolderId}}" data-id="\{{id}}" data-file-type="\{{#if thumbnail}}image\{{else}}document\{{/if}}" data-file-url="\{{url}}">
+        <div class="file-cell">
+            <div class="file-name">
+                \{{#if thumbnail}}<img src="\{{url}}"/>\{{/if}}
+                <span>\{{name}}</span>
+            </div>
+        </div>
+        <!-- HIDE
+        <div class="file-cell">
+          <div class="file-owner">
+            <span>\{{owner}}</span>
+          </div>
+        </div>
+        -->
+        <div class="file-cell">
+            <div class="file-date">
+                <span>\{{updatedAt}}</span>
+            </div>
+        </div>
+        <!-- HIDE
+        <div class="file-cell">
+          <div class="file-size">
+            <span>\{{size}}</span>
+          </div>
+        </div>
+        -->
+        <div class="file-cell">
+            <div class="file-options">
+                <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+            </div>
+        </div>
+    </div>
+</template>
+
+<template id="template-folder-item">
+    <li class="no-subfolder" data-type="folder" data-folder="\{{mediaFolderId}}" data-id="\{{id}}" data-browse-folder>
+        <div class="list-holder clearfix">
+            <i class="fa fa-chevron-right" aria-hidden="true"></i>
+            <div class="list-text-holder">
+                <span>\{{name}}</span>
+            </div>
+        </div>
+        <ul></ul>
+    </li>
+</template>
