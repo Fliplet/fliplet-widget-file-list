@@ -1,136 +1,64 @@
-<div class="file-manager-filelist">
-    <div class="f-a">
-        <div class="f-b">
-            <div class="f-c">
-                <div class="file-table">
-
-                    <div class="file-table-placeholder">
-                        <div class="file-col"></div>
-                        <!-- HIDE<div class="file-col file-owner"></div>-->
-                        <div class="file-col file-date"></div>
-                        <!-- HIDE<div class="file-col file-size"></div>-->
-                        <div class="file-col file-options"></div>
-                    </div>
-
-                    <div class="file-table-header">
-                        <div>
-                            <div class="file-cell">
-                                <div class="file-name">
-                                    Name
-                                </div>
-                            </div>
-                            <!-- HIDE
-                            <div class="file-cell">
-                              <div class="file-owner">
-                                Owner
-                              </div>
-                            </div>
-                            -->
-                            <div class="file-cell">
-                                <div class="file-date">
-                                    Last modified
-                                </div>
-                            </div>
-                            <!-- HIDE
-                            <div class="file-cell">
-                              <div class="file-size">
-                                File size
-                              </div>
-                            </div>
-                            -->
-                            <div class="file-cell">
-                                <div class="file-options"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="file-table-body">
-                        <!-- FOLDER CONTENT WILL BE HERE -->
-                    </div>
-
-                </div>
-            </div>
-        </div>
+<div id="search-wrapper" data-mode="first-load">
+  <!-- HIDE SEARCH BAR
+  <form id="directory-search">
+    <span class="glyphicon glyphicon-search"></span>
+    <input id="search" type="search" placeholder="Search documents" style="background-color: #ffffff;">
+    <div id="search-btn">
+      <span class="btn btn-link" id="search-search">Search</span>
+      <span class="btn btn-link" id="search-cancel">Cancel</span>
     </div>
+  </form>
+  -->
+  <div id="search-screen" class="">
+    <div class="sk-cube-grid">
+      <div class="sk-cube sk-cube1"></div>
+      <div class="sk-cube sk-cube2"></div>
+      <div class="sk-cube sk-cube3"></div>
+      <div class="sk-cube sk-cube4"></div>
+      <div class="sk-cube sk-cube5"></div>
+      <div class="sk-cube sk-cube6"></div>
+      <div class="sk-cube sk-cube7"></div>
+      <div class="sk-cube sk-cube8"></div>
+      <div class="sk-cube sk-cube9"></div>
+      <div class="loading-text">Loading</div>
+    </div>
+  </div>
 </div>
 
-<template id="template-folder">
-    <div class="file-row" data-folder="\{{mediaFolderId}}" data-id="\{{id}}" data-file-type="folder">
-        <div class="file-cell">
-            <div class="file-name" data-browse-folder>
-                <span>\{{name}}</span>
-            </div>
-        </div>
-        <!-- HIDE
-        <div class="file-cell">
-          <div class="file-owner">
-            <span>\{{owner}}</span>
-          </div>
-        </div>
-        -->
-        <div class="file-cell">
-            <div class="file-date">
-                <span>\{{updatedAt}}</span>
-            </div>
-        </div>
-        <!-- HIDE
-        <div class="file-cell">
-          <div class="file-size">
-            <span>\{{#if size}} \{{size}} \{{else}} - \{{/if}}</span>
-          </div>
-        </div>
-        -->
-        <div class="file-cell">
-            <div class="file-options">
-                <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-            </div>
-        </div>
-    </div>
-</template>
+<div id="offline-notification">Your device is offline</div>
 
-<template id="template-file">
-    <div class="file-row" data-folder="\{{mediaFolderId}}" data-id="\{{id}}" data-file-type="\{{#if thumbnail}}image\{{else}}document\{{/if}}" data-file-url="\{{url}}">
-        <div class="file-cell">
-            <div class="file-name">
-                \{{#if thumbnail}}<img src="\{{url}}"/>\{{/if}}
-                <span>\{{name}}</span>
-            </div>
-        </div>
-        <!-- HIDE
-        <div class="file-cell">
-          <div class="file-owner">
-            <span>\{{owner}}</span>
-          </div>
-        </div>
-        -->
-        <div class="file-cell">
-            <div class="file-date">
-                <span>\{{updatedAt}}</span>
-            </div>
-        </div>
-        <!-- HIDE
-        <div class="file-cell">
-          <div class="file-size">
-            <span>\{{size}}</span>
-          </div>
-        </div>
-        -->
-        <div class="file-cell">
-            <div class="file-options">
-                <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-            </div>
-        </div>
-    </div>
-</template>
+<div id="offline-screen">
+  <p>You are currently offline.</p>
+  <p>Connect to the internet to access the documents.</p>
+</div>
 
-<template id="template-folder-item">
-    <li class="no-subfolder" data-type="folder" data-folder="\{{mediaFolderId}}" data-id="\{{id}}" data-browse-folder>
-        <div class="list-holder clearfix">
-            <i class="fa fa-chevron-right" aria-hidden="true"></i>
-            <div class="list-text-holder">
-                <span>\{{name}}</span>
-            </div>
-        </div>
-        <ul></ul>
-    </li>
+<div id="first-load">
+  <p>We are loading the files.</p>
+  <p>This will take a moment.</p>
+</div>
+
+<div class="list list-default" data-view="first-load">
+<!-- HIDE SEARCH RESULT HOLDER & SUBFOLDER
+  <div id="search-results">
+    <div class="pull-right">
+      <span class="btn btn-link" id="search-clear">Clear</span>
+    </div>
+    <p><strong>Search results:</strong></p>
+  </div>
+  <div id="subfolder-nav">
+    <div id="back-btn">Back</div>
+    <div class="folder-title"></div>
+  </div> -->
+  <div>
+    <ul id="list-holder"></ul>
+  </div>
+</div>
+
+<template id="template-list">
+  <li data-file-id="\{{id}}" data-file-url="\{{url}}">
+    <div class="list-desc">
+      <p class="list-title">\{{name}}</p>
+      <p>\{{updatedAt}}</p>
+    </div>
+  </li>
 </template>

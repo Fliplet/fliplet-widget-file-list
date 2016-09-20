@@ -1,68 +1,122 @@
+var data = Fliplet.Widget.getData();
+console.log(data);
+
+var $listHolder = $('#list-holder');
 var templates = {
-    file: template('file'),
-    folder: template('folder'),
-    folderItem: template('folder-item')
+    list: template('list')
 };
-var $folderContents = $('.file-table-body'),
-    organizationId;
 
 function template(name) {
     return Handlebars.compile($('#template-' + name).html());
 }
 
-var folder = 9;
-Fliplet.Apps.get().then(function(apps){
-    var app = _.find(apps, {id : Fliplet.Env.get('appId')});
-    organizationId = app.organizationId;
-    getFolderContents(folder);
+var currentFiles;
 
-});
+function getFolderContents(id) {
+  $('#search-wrapper').attr('data-mode', 'loading');
+  $('#search-screen').addClass('loading');
 
-$('.file-manager-filelist').on('click', '.file-table-body [data-browse-folder]', function (event) {
-    getFolderContents($(this).parents('.file-row').attr('data-id'));
-});
+  currentFiles = [];
+  $listHolder.html('');
 
-
-function getFolderContents(currentFolderId) {
-
-    currentFolders = [];
-    currentFiles = [];
-    $folderContents.html('');
-
-    Fliplet.Media.Folders.get({
-        organizationId: organizationId,
-        folderId: currentFolderId
-    }).then(function (response) {
-        response.folders.forEach(addFolder);
-        response.files.forEach(addFile);
-    });
-}
-
-// Adds folder item template
-function addFolder(folder) {
-
-    // Converts to readable date format
-    folder.updatedAt = moment(folder.updatedAt).format("Do MMM YYYY");
-
-    currentFolders.push(folder);
-    $folderContents.append(templates.folder(folder));
+  Fliplet.Media.Folders.get({
+    folderId: data.folderID
+  }).then(function (response) {
+    response.files.forEach(addFile);
+  });
 }
 
 // Adds file item template
 function addFile(file) {
-    // Converts to readable date format
+  // Converts to readable date format
+  file.updatedAt = moment(file.updatedAt).format("Do MMM YYYY");
 
-    file.updatedAt = moment(file.updatedAt).format("Do MMM YYYY");
+  currentFiles.push(file);
+  $listHolder.append(templates.list(file));
 
-    currentFiles.push(file);
-    $folderContents.append(templates.file(file));
+  $('#search-wrapper').attr('data-mode', 'default');
+  $('#search-screen').removeClass('loading');
+  $('.list').attr('data-view', 'default');
+  if ( !$('#first-load').hasClass('hidden') ) {
+    $('#first-load').addClass('hidden');
+  }
 }
 
-
 // Network states
-document.addEventListener("offline", function(){
+if ( Fliplet.Navigator.isOnline() ) {
+  if ( $('#offline-notification').hasClass('show') ) {
+    $('#offline-notification').removeClass('show');
+    $('#offline-screen').removeClass('show');
+    $('.list').removeClass('hidden');
+  }
+  getFolderContents();
+} else {
+  $('#offline-notification').addClass('show');
+  $('#offline-screen').addClass('show');
+  $('.list').addClass('hidden');
+  $('#first-load').addClass('hidden');
+}
 
-}, false);
-document.addEventListener("online", function(){
+// EVENTS
+$('.list')
+  .on('click', '#list-holder li', function() {
+    var fileURL = $(this).attr('data-file-url');
 
-}, false);
+    if ( fileURL != undefined ) {
+      window.open(fileURL, '_blank');
+    }
+  });
+
+/*
+BACKUP
+
+$('.file-manager-filelist').on('click', '.file-table-body [data-browse-folder]', function (event) {
+    getFolderContents($(this).parents('.file-row').attr('data-id'));
+});
+*/
+
+
+/*
+BACK BUTTON AND SEARCH
+$("#back-btn").on("click", function() {
+  $('#search-screen').addClass('loading');
+  $('#search-wrapper').attr('data-mode', 'loading');
+  folderStack.pop();
+  displayFolderFiles(folderStack[folderStack.length - 1], "back");
+});
+
+$("#search-search").on("click", function() {
+  $('#search-screen').addClass('loading');
+  displaySearchResults();
+});
+
+$('#directory-search').on( 'submit', function(e){
+e.preventDefault();
+      displaySearchResults();
+});
+
+$('#search-clear').on('click', function() {
+  $('#search-screen').addClass('loading');
+  $('#search-wrapper').attr('data-mode', 'loading');
+  $('#search').val('');
+  displayFolderFiles(folderStack[folderStack.length - 1], "clear");
+});
+
+$('#search').on('click focus', function() {
+  if ( $('#search-wrapper').attr('data-mode') === "default" ) {
+  	var buttonsWidth = $('#search-btn').outerWidth();
+  	var searchBarWidth = $('#search').outerWidth();
+  	var newSearchBarWidth = searchBarWidth - buttonsWidth;
+
+  	$('#search-wrapper').attr('data-mode', 'search');
+  	$('#search').css('width', newSearchBarWidth);
+  }
+});
+
+$('#search-cancel, #search-screen').on('click', function() {
+  if( $('#search-wrapper').attr('data-mode') === "search" ) {
+	  $('#search-wrapper').attr('data-mode', 'default');
+	  $('#search').css('width', '');
+  }
+});
+*/
