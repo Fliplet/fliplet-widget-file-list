@@ -3,15 +3,16 @@
   "package": "com.fliplet.file_list",
   "version": "1.0.0",
   "icon": "img/icon.png",
-  "tags": ["type:component"],
+  "tags": ["type:component", "category:list"],
   "provider_only": false,
   "html_tag": "div",
   "interface": {
     "dependencies": [
-      "fliplet-core",
+      "fliplet-media",
       "fliplet-studio-ui"
     ],
     "assets": [
+      "vendor/handlebars.js",
       "js/interface.js",
       "css/interface.css"
     ]
@@ -19,12 +20,12 @@
   "build": {
     "dependencies": [
       "fliplet-core",
-      "fliplet-media",
       "bootstrap-css",
-      "handlebars",
-      "lodash"
+      "lodash",
+      "fliplet-media"
     ],
     "assets": [
+      "vendor/handlebars.js",
       "vendor/moment.js",
       "js/build.js",
       "css/build.css"
