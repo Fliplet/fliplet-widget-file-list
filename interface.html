@@ -16,7 +16,7 @@
           <span class="select-value-proxy">&mdash;Select a folder&mdash;</span>
 
           <select name="folder-list" id="folder_list" data-label="select" class="hidden-select form-control">
-            <option selected value="none">&mdash;Select a folder&mdash;</option>
+            <option value="none">&mdash;Select a folder&mdash;</option>
           </select>
         </label>
       </div>
@@ -26,5 +26,8 @@
 </div>
 
 <template id="template-folder">
-  <option value="\{{id}}">\{{name}}</option>
+  <option value="\{{id}}" data-folder>\{{name}}</option>
+</template>
+<template id="template-app">
+  <option value="\{{id}}" data-app>\{{name}}</option>
 </template>

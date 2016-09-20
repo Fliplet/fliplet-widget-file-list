@@ -1,22 +1,28 @@
 var $folderList = $('#folder_list');
 var templates = {
-  folder: template('folder')
+  folder: template('folder'),
+  app: template('app')
 };
 
-var data = Fliplet.Widget.getData() || {};
+var data = Fliplet.Widget.getData();
+var widgetId = Fliplet.Widget.getDefaultId();
+console.log(data);
 
 function getFolder() {
   Fliplet.Media.Folders.get({
     appId: Fliplet.Env.get('appId')
   }).then(function (response) {
-    if (response.folders.length === 0) {
-      Fliplet.Apps.get( Fliplet.Env.get('appId') ).then(function (apps) {
-        apps.forEach(addFolder);
-      });
-    } else {
-      response.folders.forEach(addFolder);
-    }
-  });
+    Fliplet.Apps.get( Fliplet.Env.get('appId') ).then(function (apps) {
+      apps[0].name = "Root folder";
+      apps.forEach(addApp);
+    });
+    response.folders.forEach(addFolder);
+  }).then(initialiseData);
+}
+
+// Adds app root folder template
+function addApp(app) {
+  $folderList.append(templates.app(app));
 }
 
 // Adds folder item template
@@ -29,27 +35,28 @@ function template(name) {
   return Handlebars.compile($('#template-' + name).html());
 }
 
-// 1. Fired from Fliplet Studio when the external save button is clicked
-Fliplet.Widget.onSaveRequest(function () {
-  $('form').submit();
-});
+function save(notifyComplete) {
 
-// 2. Fired when the user submits the form
-$('form').submit(function (event) {
-  event.preventDefault();
+  data.appID = '';
+  data.folderID = '';
+
+  if ( $('#folder_list option:selected').attr('data-app') !== undefined ) {
+    data.appID = $('#folder_list option:selected').val();
+  } else {
+    data.folderID = $('#folder_list option:selected').val();
+  }
+
+  if(notifyComplete) {
+    Fliplet.Widget.save(data).then(function () {
+      Fliplet.Studio.emit('reload-page-preview');
+      Fliplet.Widget.complete();
+    });
+  }
+}
+
+Fliplet.Widget.onSaveRequest(function () {
   save(true);
 });
-
-function save(notifyComplete) {
-  data.folderID = $('#folder_list option:selected').val();
-
-  Fliplet.Widget.save(data).then(function () {
-    if (notifyComplete) {
-      Fliplet.Widget.complete();
-      window.location.reload();
-    }
-  });
-}
 
 $('#folder_list').on('change', function() {
   var selectedValue = $(this).val();
@@ -62,5 +69,17 @@ $('#folder_list').on('change', function() {
 $('#help_tip').on('click', function() {
   alert("During beta, please use live chat and let us know what you need help with.");
 });
+
+function initialiseData() {
+  if (data != undefined ) {
+    if (data.appID != '') {
+      $('#folder_list [data-app][value="'+data.appID+'"]').attr("selected","selected");
+      $('#folder_list').change();
+    } else {
+      $('#folder_list [data-folder][value="'+data.appID+'"]').attr("selected","selected");
+      $('#folder_list').change();
+    }
+  }
+}
 
 getFolder();
