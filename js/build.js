@@ -22,6 +22,13 @@ function getFolderContents(id) {
       appId: data.appID,
       folderId: data.folderID
   }).then(function (response) {
+    if (!response.files.length) {
+      response.files.push({
+        id: 0,
+        name: 'No files available in the selected folder',
+        url: 'sample.pdf'
+      });
+    }
     response.files.forEach(addFile);
   });
 }
