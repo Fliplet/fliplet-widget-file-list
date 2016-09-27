@@ -12,7 +12,6 @@ function getFolder() {
     appId: Fliplet.Env.get('appId')
   }).then(function (response) {
     return Fliplet.Apps.get( Fliplet.Env.get('appId') ).then(function (apps) {
-      apps[0].name = "Root folder";
       apps.forEach(addApp);
     });
     response.folders.forEach(addFolder);
