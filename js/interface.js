@@ -6,17 +6,17 @@ var templates = {
 
 var data = Fliplet.Widget.getData();
 var widgetId = Fliplet.Widget.getDefaultId();
-console.log(data);
 
 function getFolder() {
   Fliplet.Media.Folders.get({
     appId: Fliplet.Env.get('appId')
   }).then(function (response) {
-    Fliplet.Apps.get( Fliplet.Env.get('appId') ).then(function (apps) {
+    return Fliplet.Apps.get( Fliplet.Env.get('appId') ).then(function (apps) {
       apps[0].name = "Root folder";
       apps.forEach(addApp);
     });
     response.folders.forEach(addFolder);
+    return Promise.resolve();
   }).then(initialiseData);
 }
 
