@@ -31,5 +31,10 @@
       "js/build.js",
       "css/build.css"
     ]
-  }
+  },
+  "references": [
+    "appId:app",
+    "organizationId:organization",
+    "folderId:mediaFolder"
+  ]
 }
