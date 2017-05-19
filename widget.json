@@ -3,7 +3,7 @@
   "package": "com.fliplet.file-list",
   "version": "1.0.0",
   "icon": "img/icon.png",
-  "tags": ["type:component", "category:list"],
+  "tags": ["category:list"],
   "provider_only": false,
   "html_tag": "div",
   "interface": {
