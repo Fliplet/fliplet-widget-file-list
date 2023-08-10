@@ -23,7 +23,8 @@
       "fliplet-core",
       "bootstrap-css",
       "lodash",
-      "fliplet-media"
+      "fliplet-media",
+      "moment"
     ],
     "assets": [
       "vendor/handlebars.js",
